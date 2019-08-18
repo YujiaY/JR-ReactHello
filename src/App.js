@@ -12,6 +12,7 @@ class App extends React.Component {
 
   render() {
     console.log('App render');
+
     return (
       <section className="App">
           <Welcome name="Nick"  isTeacher />

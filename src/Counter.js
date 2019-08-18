@@ -3,7 +3,8 @@ import React, {Component} from 'react';
 export default class Counter extends Component{
     constructor(props){
       super(props);
-      this.state = {count: 0, diff: 1}
+      this.state = {count: 101, diff: 1}
+      this.count = this.state.count;
     }
 
   handleAdd = ()=>{
