@@ -1,34 +1,32 @@
 import React, {Component} from 'react';
 
 export default class Counter extends Component{
-    constructor(props){
-      super(props);
-      this.state = {count: 101, diff: 1}
-      this.count = this.state.count;
-    }
+  constructor(props){
+    super(props);
 
-  handleAdd = ()=>{
-    this.setState((preState, props) => {
-      return  {
-        count: preState.count + props.diff
-      };
-    });
   }
 
-  handleSubtract = ()=>{
-    this.setState((preState, props) => {
-      return {
-        count: preState.count - props.diff
-      };
-    });
+  componentDidUpdate() {
+    console.log('Counter componentDidUpdate');
+  }
+
+  onFormSubmit = (e) => {
+    e.preventDefault();
+    console.log(`'Submitting ${this.props.diff}`);
   }
   
     render(){
       return(
         <div>
-          <span>count is : {this.state.count} </span>
-          <button onClick={this.handleSubtract}> - {this.props.diff} </button>
-          <button onClick={this.handleAdd}> + {this.props.diff} </button>
+          <form onSubmit={this.onFormSubmit}>
+            <span>Diff: </span>
+            <input type="text" name="diff" value = {this.props.diff} onChange={this.props.onDiffInputChange}/>
+            <button>Submit Diff</button>
+          </form>
+
+          <span>count is : {this.props.count} </span>
+          <button onClick={this.props.handleSubtract}> -{this.props.diff} </button>
+          <button onClick={this.props.handleAdd}> +{this.props.diff} </button>
         </div>
       );
     }
