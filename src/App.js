@@ -3,6 +3,10 @@ import './App.css';
 import Welcome from './Welcome';
 import Counter from './Counter';
 import WelcomeForm from './WelcomeForm'
+import rootReducer from './reducers/index';
+import {connect} from "react-redux";
+
+import {getWelcomeAsync} from "./actions/welcomeActions";
 
 class App extends React.Component {
   constructor(props){
@@ -12,6 +16,10 @@ class App extends React.Component {
       diff: +10
     };
     console.log('APP constructor');
+  }
+
+  componentDidMount() {
+    this.props.dispatch(getWelcomeAsync());
   }
 
   handleAdd = ()=>{
@@ -39,8 +47,20 @@ class App extends React.Component {
   render() {
     return (
       <section className="App" >
-          <Welcome name="Nick"  isTeacher />
-          <Welcome name="Jack"  />
+          {/*<Welcome name="Nick"  isTeacher />*/}
+          {/*<Welcome name="Jack"  />*/}
+          {/*<p>"welcomeList: "</p>*/}
+        {
+          this.props.welcomeList.map((element, index) => (
+            <div key = {index}>
+              <Welcome
+                name = {element.author}
+              isTeacher = {element.isTeacher}
+              />
+              <div>Content: {element.content}.</div>
+            </div>
+          ))
+        }
 
           <Counter
             count = {this.state.count}
@@ -55,4 +75,10 @@ class App extends React.Component {
   }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    welcomeList: state.welcomeRdc.welcomeList
+  }
+}
+
+export default connect(mapStateToProps)(App);

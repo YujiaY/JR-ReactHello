@@ -1,5 +1,7 @@
 import React from 'react'
 // import Counter from './Counter'
+import {connect} from 'react-redux';
+
 
 const Welcome = (props) => {
     return (
@@ -10,10 +12,19 @@ const Welcome = (props) => {
         }
         {
           !props.isTeacher &&
-          <p>{`Hello ${props.name}, I am a student.`}</p>
+          <p>{`Hello, ${props.name}, I am a student.`}</p>
         }
       </div>
+
     );
 }
 
-export default Welcome;
+const mapStateToProps = state => {
+  return {
+    welcomeList: state.welcomeRdc.welcomeList
+  }
+}
+
+export default connect(mapStateToProps)(Welcome);
+
+// export default Welcome;
